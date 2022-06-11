@@ -9,7 +9,7 @@ Here you've a list of common attacks:
 - Cross Site Scripting or XSS [link 1](https://owasp.org/www-community/attacks/xss/), [link 2](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
 - Cross Site Request Forgery or [CSRF](https://owasp.org/www-community/attacks/csrf)
 - More attacks on OWASP [list](https://owasp.org/www-community/attacks/), [cheat sheets](https://cheatsheetseries.owasp.org)
-https://github.com/cure53/DOMPurify/wiki/Security-Goals-&-Threat-Model
+
 
 ### Security issues when storing the user's mnemonic key on the browser
 
@@ -25,14 +25,18 @@ They wrote an article "[Secure Browser Storage: The Facts](https://auth0.com/blo
 
 ## Protect against security risks
 
-### General best practices
-- Create a Content Security Policy or CSP. A [Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html) from OWASP.
+### Basic best practices
 
-#### Prevent Cross Site Scripting (XSS)
-As detailed in "[Cross Site Scripting Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#xss-prevention-rules-summary)" by OWASP, "_For XSS attacks to be successful, an attacker needs to insert and execute malicious content in a webpage. Each variable in a web application needs to be protected. Ensuring that all variables go through validation and are then escaped or sanitized is known as perfect injection resistance. Any variable that does not go through this process is a potential weakness. Frameworks (like React) make it easy to ensure variables are correctly validated and escaped or sanitized. However, frameworks aren't perfect and security gaps still exist in popular frameworks like React. Output Encoding and HTML Sanitization help address those gaps._"
+A long list by [OWASP](https://cheatsheetseries.owasp.org/Glossary.html) of the most common attacks and how to prevent them.
 
-Solutions to XSS according to OWASP:
-![image](https://user-images.githubusercontent.com/3519924/173188360-2d8ebc06-071a-4c58-966e-52f8e9c374cc.png)
+Skia Wallet team has to work on next areas:
+- [ ] **[To do]** Cross Site Scripting or XSS. As detailed in "[Cross Site Scripting Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#xss-prevention-rules-summary)" by OWASP, "_For XSS attacks to be successful, an attacker needs to insert and execute malicious content in a webpage. Each variable in a web application needs to be protected. Ensuring that all variables go through validation and are then escaped or sanitized is known as perfect injection resistance. Any variable that does not go through this process is a potential weakness. [...] Output Encoding and HTML Sanitization help address those gaps._"
+- [ ] **[To do]** Javascript package manager [NPM](https://cheatsheetseries.owasp.org/cheatsheets/NPM_Security_Cheat_Sheet.html)
+- [ ] **[To do]** [NodeJS](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html)
+
+One starting point is:
+- [Sanitize the inputs](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html) with the Javascript library [DOMPurify](https://github.com/cure53/DOMPurify) (its goals [here](https://github.com/cure53/DOMPurify/wiki/Security-Goals-&-Threat-Model)). It's a common issue on multiple type of attacks.
+- Set up the [HTML headers](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html): `X-Frame-Options`, `X-XSS-Protection`, `X-Content-Type-Options`, `Referrer-Policy`, `Content-Type`, `Strict-Transport-Security`, `Content-Security-Policy`, `Access-Control-Allow-Origin`, `Cross-Origin-Opener-Policy`, `Cross-Origin-Resource-Policy`, `Cross-Origin-Embedder-Policy`, remove `X-Powered-By`.
 
 ### Secure the storage of the mnemonic key
 There's another technology that browsers supports called **Web Workers** that guarantee that the data remains inside a Web Worker and cannot be accessed from outside, like an attacker.
