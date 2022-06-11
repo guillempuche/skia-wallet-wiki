@@ -51,14 +51,19 @@ There's another technology that browsers supports called **Web Workers** that gu
 ![image](https://user-images.githubusercontent.com/3519924/173195144-02b344ce-52c8-45ff-ad47-95c3395cd92f.png)
 _Image from [Auth0]_
 
+"_The Worker interface spawns real OS-level threads, and mindful programmers may be concerned that concurrency can cause effects in your code if you aren't careful. However, since web workers have carefully controlled communication points with other threads, it's actually very hard to cause concurrency problems. There's no access to non-threadsafe components or the DOM. And you have to pass specific data in and out of a thread through serialized objects. So you have to work really hard to cause problems in your code._ by [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers#about_thread_safety)
+
 "_Web Workers can run JavaScript code in a background thread separate from the main execution thread of the JS frontend application. They communicate with the frontend application via a channel called MessageChannel. Specifically, the application can send a message to the Web Worker to perform some action via the MessageChannel. The Web Worker will perform the action and send back to the application the needed information._" by [Auth0][auth0-storage]. "_With Web Workers, the secret is available in the isolated JavaScript code of the Web Worker. If JS frontend code needs access to the secret, the Web Worker implementation is the only one satisfying the requirement while preserving the secret confidentiality._".
+
+[Bruce Wilson](https://blog.logrocket.com/using-webworkers-for-safe-concurrent-javascript-3f33da4eb0b2/) says "_any data that is passed via `postMessage()`_" (the method used by Web Worker to communicate with the main thread) "_is copied before it is passed, so changing the data in the main window thread does not result in changes to the data in the worker thread. This provides inherent protection from conflicting concurrent changes to data that’s passed between main thread and worker thread_".
 
 Benefits of Web Workers over the previous storing web techniques:
 
 - Supported by all major mobile and desktop browsers. [Can I Use][can-i-use-web-workers] shows the compatibility table and supported by ~96% of browser's user in the world.
 - It prevents third-party code from accessing mnemonic key and HTTP-request interceptions. Since third-party codes run on the main thread, they cannot intercept requests initiated by the web workers. Yes, when we store access tokens in web workers, API requests needing those access tokens should also be initiated from the web workers.
 
-Some concerns found on Internet:
+Some concerns found on the documentation and Internet:
+- [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers#content_security_policy) "_Workers are considered to have their own execution context, distinct from the document that created them. For this reason they are, in general, not governed by the content security policy of the document (or parent worker) that created them. [...] To specify a content security policy for the worker, set a [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) response header for the request which delivered the worker script itself._"
 - [HTML5 Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html#web-workers) by OWASP
   - _Web Workers are allowed to use XMLHttpRequest object to perform in-domain and Cross Origin Resource Sharing requests. See relevant section of this Cheat Sheet to ensure CORS security._
   - _While Web Workers don't have access to DOM of the calling page, malicious Web Workers can use excessive CPU for computation, leading to Denial of Service condition or abuse Cross Origin Resource Sharing for further exploitation. Ensure code in all Web Workers scripts is not malevolent. Don't allow creating Web Worker scripts from user supplied input._
