@@ -63,6 +63,7 @@ Benefits of Web Workers over the previous storing web techniques:
 - It prevents third-party code from accessing mnemonic key and HTTP-request interceptions. Since third-party codes run on the main thread, they cannot intercept requests initiated by the web workers. Yes, when we store access tokens in web workers, API requests needing those access tokens should also be initiated from the web workers.
 
 Some concerns found on the documentation and Internet:
+
 - [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers#content_security_policy) "_Workers are considered to have their own execution context, distinct from the document that created them. For this reason they are, in general, not governed by the content security policy of the document (or parent worker) that created them. [...] To specify a content security policy for the worker, set a [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) response header for the request which delivered the worker script itself._"
 - [HTML5 Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html#web-workers) by OWASP
   - _Web Workers are allowed to use XMLHttpRequest object to perform in-domain and Cross Origin Resource Sharing requests. See relevant section of this Cheat Sheet to ensure CORS security._
@@ -78,17 +79,18 @@ Some concerns found on the documentation and Internet:
   - _Script loading is subject to the same restrictions as on the main thread (content policies, same origin restrictions, etc.)._
   - _XHR uses the same code as the main thread._
 
-## Developer tools for security analyzes
 
-Skia Wallet uses in the development workflow: 
-- [Snyk](https://snyk.io/) to "_find and fix security vulnerabilities in code and dependencies_".
-
-## References
+##### References
 
 - [List of attacks and their solutions][owasp-cheatsheet] by OWASP
 - [MDN][mdn-web-workers]
 - [HTML Living Standard][whatwg-org]
 - [Can I Use][can-i-use-web-workers]
+
+## Developer tools for security analyzes
+
+Skia Wallet uses in the development workflow: 
+- [Snyk](https://snyk.io/) to "_find and fix security vulnerabilities in code and dependencies_".
 
 [owasp-cheatsheet]: https://cheatsheetseries.owasp.org/Glossary.html
 [auth0-storage]: https://auth0.com/blog/secure-browser-storage-the-facts/
