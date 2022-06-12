@@ -18,10 +18,10 @@ The company [Auth0](https://auth0.com/) is recognized for offering to the softwa
 
 They wrote an article "[Secure Browser Storage: The Facts][auth0-storage]" in 2021 storing data and attacking the code with the common security issues (). The next popular storage techniques were attacked:
 
-- Local Storage. Read about its technical details on [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
-- Session Storage. Read about its technical details on [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage).
-- Cookies.
-- In memory.
+- Local Storage or `localStorage`. Read about its technical details on [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
+- Session Storage or `sessionStorage`. Read about it on [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage).
+- Cookies. Read about it on [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
+- In memory. It stores the data temporary, this means if you refresh the page, it'll go away.
 
 ## How Metamask is saving the user's data?
 
@@ -37,16 +37,18 @@ Metamask extension uses [LavaMoat](https://github.com/LavaMoat/lavamoat) to pack
 
 LavaMoat's creator did a [talk in Speakeasy JS](https://youtu.be/iaqe6F4S2tA) in 2021 about an attack dono to a Javacript library used by multiple projects in the blockchain.
 
-List of ways Metamask saves the data:
+List of ways Metamask saves the user's data:
 
-- File [`background`](https://github.com/MetaMask/metamask-extension/blob/b170211700/app/scripts/background.js) contains big part of the data management of the Metamask extension.
-  - [`initApp`](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/background.js#L90) is where all is started
+- Browser extensions needs to write a [manifest file](https://developer.chrome.com/docs/extensions/mv3/manifest/) to tell to the browsers the permissions, icons... they gonna use. [Metamask's manifest](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/manifest/v3/_base.json) has a permission for [storage](https://developer.chrome.com/docs/extensions/reference/storage/), it's very similar as `localStorage` but with some differences commented in the previous link .
+- The file [`background`](https://github.com/MetaMask/metamask-extension/blob/b170211700/app/scripts/background.js) contains big part of the data management of the Metamask extension.
+  - [`initApp`](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/background.js#L90) is where big part of `background` code is initialized.
 - [`MetamaskController`](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/metamask-controller.js#L161): used to store the user's state related to the Metamask extension. Where is it called? in file [background](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/background.js#L314)
-- User's preferences (locale, features that user wants to see...) are saving in the local storage (field [`store`](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/controllers/preferences.js#L19) in `PreferencesController`.
-- A common Javascript library used by Metamask is [@metamask/obs-store](https://github.com/MetaMask/obs-store). One of the most used parts of the code is [`ObservableStore`](https://github.com/MetaMask/obs-store/blob/main/src/ObservableStore.ts).
-- For creating, deleting... the private keys, the Javascript library used is [Keyring Controller](https://github.com/MetaMask/KeyringController/). All the code is [here](https://github.com/MetaMask/KeyringController/blob/main/index.js). Some example of the methods:
+- User's preferences (locale, features that user wants to see...) are saved in the field called [`store`](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/controllers/preferences.js#L19) in `PreferencesController`.
+- A common Javascript library used by Metamask is [@metamask/obs-store](https://github.com/MetaMask/obs-store), also called `ObservableStore` or _vault_.  The main code is [here](https://github.com/MetaMask/obs-store/blob/main/src/ObservableStore.ts).
+- For creating, deleting... the private keys, the Javascript library used is [Keyring Controller](https://github.com/MetaMask/KeyringController/). The library uses the library `ObservableStore` to store data. The code is [here](https://github.com/MetaMask/KeyringController/blob/main/index.js). Some of its methods:
   - [`createNewVaultAndRestore`](https://github.com/MetaMask/KeyringController/blob/0a92a4b2ef80b665ae8240881b3a1f2d7715d514/index.js#L100)). It _"destroys any old encrypted storage, creates a new encrypted store with the given password, creates a new HD wallet from the given seed with 1 account."_
-  - [`persistAllKeyrings`](https://github.com/MetaMask/KeyringController/blob/0a92a4b2ef80b665ae8240881b3a1f2d7715d514/index.js#L549): encrypts (with [browser-passworder](https://github.com/MetaMask/browser-passworder) and stores (with `ObservableStore`, previously commented) the user's mnemonic key
+  - [`persistAllKeyrings`](https://github.com/MetaMask/KeyringController/blob/0a92a4b2ef80b665ae8240881b3a1f2d7715d514/index.js#L549) is runned inside `createNewVaultAndRestore`. It encrypts (with [browser-passworder](https://github.com/MetaMask/browser-passworder) and stores (with `ObservableStore`) the user's mnemonic key (also called _seed phrase_).
+- Etcetera
 
 ## Protect against security risks
 
