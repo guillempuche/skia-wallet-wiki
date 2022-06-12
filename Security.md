@@ -29,9 +29,13 @@ MetaMask is the most famous software cryptocurrency wallet used to interact with
 
 Then it's a good source to understand how they save the user's data.
 
+First, let's check the its code architecture [here](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/docs/architecture.png)
+
 > ℹ️ Some of the links below point to lines of code at one moment in time. If you want to read the latest code, switch to the related project's default branch (e.g. `main`, `develop`...)
 
-Metamask extension uses [LavaMoat](https://github.com/LavaMoat/lavamoat) to package all the code ([here is the line](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/package.json#L16) in a secure way to prevent software supply chain attacks.
+Metamask extension uses [LavaMoat](https://github.com/LavaMoat/lavamoat) to package all the code ([here is the line](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/package.json#L16) in a secure way to prevent software supply chain attacks. Microsoft explains [here](https://docs.microsoft.com/en-us/microsoft-365/security/intelligence/supply-chain-malware) that _"software vendors are likely unaware that their apps or updates are infected with malicious code when they're released to the public. The malicious code then runs with the same trust and permissions as the app. The number of potential victims is significant, given the popularity of some apps. A case occurred where a free file compression app was poisoned and deployed to customers in a country where it was the top utility app."_
+
+LavaMoat's creator did a [talk in Speakeasy JS](https://youtu.be/iaqe6F4S2tA) in 2021 about an attack dono to a Javacript library used by multiple projects in the blockchain.
 
 List of ways Metamask saves the data:
 
@@ -55,9 +59,12 @@ Skia Wallet team has to work on the next areas:
 - [ ] **[To do]** Cross-Site Request Forgery or [CSRF](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)
 - [ ] **[To do]** [Sanitize the inputs](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html) with the Javascript library [DOMPurify](https://github.com/cure53/DOMPurify) (its goals [here](https://github.com/cure53/DOMPurify/wiki/Security-Goals-&-Threat-Model)). It's a common issue on multiple type of attacks.
 - [ ] **[To do]** Set up the [HTML headers](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html): `X-Frame-Options`, `X-XSS-Protection`, `X-Content-Type-Options`, `Referrer-Policy`, `Content-Type`, `Strict-Transport-Security`, `Content-Security-Policy`, `Access-Control-Allow-Origin`, `Cross-Origin-Opener-Policy`, `Cross-Origin-Resource-Policy`, `Cross-Origin-Embedder-Policy`, remove `X-Powered-By`.
-- [ ] **[To do]** Use Two-Factor Authentication (2FA) and verifiers for Skia Wallet team members who have access to crucial feature: the codebase (2FA on [Github](https://docs.github.com/en/enterprise-cloud@latest/authentication/securing-your-account-with-two-factor-authentication-2fa/about-two-factor-authentication), GPG on [Github](https://docs.github.com/en/enterprise-cloud@latest/authentication/managing-commit-signature-verification/about-commit-signature-verification))
+- [ ] **[To do]** Require multi-factor authentication for admins. In places like the codebase (2FA on [Github](https://docs.github.com/en/enterprise-cloud@latest/authentication/securing-your-account-with-two-factor-authentication-2fa/about-two-factor-authentication), GPG on [Github](https://docs.github.com/en/enterprise-cloud@latest/authentication/managing-commit-signature-verification/about-commit-signature-verification))
 
 Secondary:
+- [ ] Good practices for software developers according to:
+  - Google: [security for websites](https://developers.google.com/search/docs/advanced/security/overview)
+  - Microsoft: [Security Development Lifecycle](https://www.microsoft.com/en-us/securityengineering/sdl), [mitigate supply chain attacks](https://docs.microsoft.com/en-us/microsoft-365/security/intelligence/supply-chain-malware#for-software-vendors-and-developers)
 - [ ] [CSS](https://cheatsheetseries.owasp.org/cheatsheets/Securing_Cascading_Style_Sheets_Cheat_Sheet.html)
 - [ ] Javascript package manager [NPM](https://cheatsheetseries.owasp.org/cheatsheets/NPM_Security_Cheat_Sheet.html)
 - [ ] [NodeJS](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html)
