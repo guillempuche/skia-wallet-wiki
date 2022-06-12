@@ -1,5 +1,6 @@
 # Security of the Skia Wallet
 
+You can learn the security risks of the browsers, security issues when storing the user's private keys and the measures Skia Wallet team is taking into account.
 
 ## Understand the security risks of the browsers
 
@@ -9,7 +10,6 @@ Here you've a list of common attacks:
 - Cross-Site Scripting or XSS [link 1](https://owasp.org/www-community/attacks/xss/), [link 2](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
 - Cross-Site Request Forgery or [CSRF](https://owasp.org/www-community/attacks/csrf)
 - More attacks on OWASP [list](https://owasp.org/www-community/attacks/), [cheat sheets](https://cheatsheetseries.owasp.org)
-
 
 ### Security issues when storing the user's mnemonic key on the browser
 
@@ -23,9 +23,30 @@ They wrote an article "[Secure Browser Storage: The Facts][auth0-storage]" in 20
 - Cookies.
 - In memory.
 
+## How Metamask is saving the user's data?
+
+MetaMask is the most famous software cryptocurrency wallet used to interact with the Ethereum blockchain. It allows users to access their Ethereum wallet through a browser extension or mobile app, which can then be used to interact with decentralized applications. MetaMask is developed by ConsenSys Software Inc., a blockchain software company focusing on Ethereum-based tools and infrastructure.
+
+Then it's a good source to understand how they save the user's data.
+
+> ℹ️ Some of the links below point to lines of code at one moment in time. If you want to read the latest code, switch to the related project's default branch (e.g. `main`, `develop`...)
+
+Metamask extension uses [LavaMoat](https://github.com/LavaMoat/lavamoat) to package all the code ([here is the line](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/package.json#L16) in a secure way to prevent software supply chain attacks.
+
+List of ways Metamask saves the data:
+
+- File [`background`](https://github.com/MetaMask/metamask-extension/blob/b170211700/app/scripts/background.js) contains big part of the data management of the Metamask extension.
+  - [`initApp`](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/background.js#L90) is where all is started
+- [`MetamaskController`](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/metamask-controller.js#L161): used to store the user's state related to the Metamask extension. Where is it called? in file [background](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/background.js#L314)
+- User's preferences (locale, features that user wants to see...) are saving in the local storage (field [`store`](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/controllers/preferences.js#L19) in `PreferencesController`.
+- A common Javascript library used by Metamask is [@metamask/obs-store](https://github.com/MetaMask/obs-store). One of the most used parts of the code is [`ObservableStore`](https://github.com/MetaMask/obs-store/blob/main/src/ObservableStore.ts).
+- For creating, deleting... the private keys, the Javascript library used is [Keyring Controller](https://github.com/MetaMask/KeyringController/). All the code is [here](https://github.com/MetaMask/KeyringController/blob/main/index.js). Some example of the methods:
+  - [`createNewVaultAndRestore`](https://github.com/MetaMask/KeyringController/blob/0a92a4b2ef80b665ae8240881b3a1f2d7715d514/index.js#L100)). It _"destroys any old encrypted storage, creates a new encrypted store with the given password, creates a new HD wallet from the given seed with 1 account."_
+  - [`persistAllKeyrings`](https://github.com/MetaMask/KeyringController/blob/0a92a4b2ef80b665ae8240881b3a1f2d7715d514/index.js#L549): encrypts (with [browser-passworder](https://github.com/MetaMask/browser-passworder) and stores (with `ObservableStore`, previously commented) the user's mnemonic key
+
 ## Protect against security risks
 
-### Basic best practices
+### Common best practices
 
 A long list by [OWASP][owasp-cheatsheets] of the most common attacks and how to prevent them.
 
@@ -41,7 +62,7 @@ Secondary:
 - [ ] Javascript package manager [NPM](https://cheatsheetseries.owasp.org/cheatsheets/NPM_Security_Cheat_Sheet.html)
 - [ ] [NodeJS](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html)
 
-### Secure the storage of the mnemonic key
+### Secure the storage of the mnemonic key and private keys
 There's another technology that browsers supports called **Web Workers** that guarantee that the data remains inside a Web Worker and cannot be accessed from outside, like an attacker.
 
 #### Web Workers
@@ -87,7 +108,7 @@ Some concerns found on the documentation and Internet:
 - [HTML Living Standard][whatwg-org]
 - [Can I Use][can-i-use-web-workers]
 
-## Developer tools for security analyzes
+## Tools for security analyzes
 
 Skia Wallet uses in the development workflow: 
 - [Snyk](https://snyk.io/) to "_find and fix security vulnerabilities in code and dependencies_".
