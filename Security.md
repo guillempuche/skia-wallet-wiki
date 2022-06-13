@@ -39,7 +39,13 @@ LavaMoat's creator did a [talk in Speakeasy JS](https://youtu.be/iaqe6F4S2tA) in
 
 List of ways Metamask saves the user's data:
 
-- Browser extensions needs to write a [manifest file](https://developer.chrome.com/docs/extensions/mv3/manifest/) to tell to the browsers the permissions, icons... they gonna use. [Metamask's manifest](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/manifest/v3/_base.json) has a permission for [storage](https://developer.chrome.com/docs/extensions/reference/storage/), it's very similar as `localStorage` but with some differences commented in the previous link .
+- Browser extensions needs to write a [manifest file](https://developer.chrome.com/docs/extensions/mv3/manifest/) to tell to the browsers the permissions, icons... they gonna use. [Metamask's manifest](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/manifest/v3/_base.json) has a permission for storage (here is the [documentation](https://developer.chrome.com/docs/extensions/reference/storage/)), it's very similar as `localStorage` but with some differences commented in the previous link. At some point (2018 or before), it switched from `localStorage` to `chrome.storage.local` ([reference 1](https://github.com/MetaMask/metamask-extension/issues/3706#issuecomment-375835556), [reference 2](https://github.com/MetaMask/metamask-extension/issues/2749#issuecomment-390328007)), find therYou can open the Developer Tools for the Metamask Extension of the browser where it's installed, then on the console, run the next command (read more clicking the previous documentation link):
+```js
+chrome.storage.local.get('data', result => {
+    var vault = result.data.KeyringController.vault
+    console.log(vault)
+})
+```
 - The file [`background`](https://github.com/MetaMask/metamask-extension/blob/b170211700/app/scripts/background.js) contains big part of the data management of the Metamask extension.
   - [`initApp`](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/background.js#L90) is where big part of `background` code is initialized.
 - [`MetamaskController`](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/metamask-controller.js#L161): used to store the user's state related to the Metamask extension. Where is it called? in file [background](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/background.js#L314)
