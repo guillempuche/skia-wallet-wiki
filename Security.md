@@ -96,6 +96,7 @@ _Image from [Auth0]_
 
 Benefits of Web Workers over the previous storing web techniques:
 
+- The other techniques to store data explained above (`localStorage, `sessionStorage` and cookies) are more vulnerable to attacks.
 - Supported by all major mobile and desktop browsers. [Can I Use][can-i-use-web-workers] shows the compatibility table and supported by ~96% of browser's user in the world.
 - It prevents third-party code from accessing mnemonic key and HTTP-request interceptions. Since third-party codes run on the main thread, they cannot intercept requests initiated by the web workers. Yes, when we store access tokens in web workers, API requests needing those access tokens should also be initiated from the web workers.
 
