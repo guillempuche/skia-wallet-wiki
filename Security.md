@@ -7,6 +7,8 @@ You can learn the security risks of the browsers, security issues when storing t
 ### List of security issues
 
 Here you've a list of common attacks:
+- Hacks in multi-factor authentication solutions by [Roger Grimes in RSA Conference 2019](https://youtu.be/QJL63_LO6c8)
+- Problems with passwords by [Alex Winert in Microsoft Security](https://www.youtube.com/watch?v=JNr03FEUPwY)
 - Cross-Site Scripting or XSS [link 1](https://owasp.org/www-community/attacks/xss/), [link 2](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
 - Cross-Site Request Forgery or [CSRF](https://owasp.org/www-community/attacks/csrf)
 - More attacks on OWASP [list](https://owasp.org/www-community/attacks/), [cheat sheets](https://cheatsheetseries.owasp.org)
