@@ -2,18 +2,34 @@
 
 You can learn the security risks of the browsers, security issues when storing the user's private keys and the measures Skia Wallet team is taking into account.
 
-## Understand the security risks of the browsers
+---
 
-### List of security issues
+## Our current features
+
+Our ønly security measures we're taking is using security tools to find and fix security vulnerabilities in code and dependencies:
+
+- [Snyk.io](www.snyk.io)
+- Github's security bot [Dependabot](https://github.com/dependabot) to find automatically new security issues after each new update of the code.
+
+---
+
+## To-do
+
+We need to improve multiple facets of all kind of attacks described below.
+
+### Understand the security risks of the browsers
+
+#### List of security issues
 
 Here you've a list of common attacks:
+
 - Hacks in multi-factor authentication solutions by [Roger Grimes in RSA Conference 2019](https://youtu.be/QJL63_LO6c8)
 - Problems with passwords by [Alex Winert in Microsoft Security](https://www.youtube.com/watch?v=JNr03FEUPwY)
 - Cross-Site Scripting or XSS [link 1](https://owasp.org/www-community/attacks/xss/), [link 2](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
 - Cross-Site Request Forgery or [CSRF](https://owasp.org/www-community/attacks/csrf)
 - More attacks on OWASP [list](https://owasp.org/www-community/attacks/), [cheat sheets](https://cheatsheetseries.owasp.org)
 
-### Security issues when storing the user's mnemonic key on the browser
+#### Security issues when storing the user's mnemonic key on the browser
 
 Here you'll discover how Skia Wallet saves the mnemonic key of the persons on the browsers.
 The company [Auth0](https://auth0.com/) is recognized for offering to the software developers an easy way to implement, adaptable authentication and authorization for their apps and websites.
@@ -25,7 +41,29 @@ They wrote an article "[Secure Browser Storage: The Facts][auth0-storage]" in 20
 - Cookies. Read about it on [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
 - In memory. It stores the data temporary, this means if you refresh the page, it'll go away.
 
-## How Metamask is saving the user's data?
+### Protect against security risks
+
+#### Common best practices
+
+A long list by [OWASP][owasp-cheatsheets] of the most common attacks and how to prevent them.
+
+Skia Wallet team has to work on the next areas:
+
+- [ ] **[To do]** Cross-Site Scripting or [XSS](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#xss-prevention-rules-summary).
+- [ ] **[To do]** Cross-Site Request Forgery or [CSRF](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)
+- [ ] **[To do]** [Sanitize the inputs](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html) with the Javascript library [DOMPurify](https://github.com/cure53/DOMPurify) (its goals [here](https://github.com/cure53/DOMPurify/wiki/Security-Goals-&-Threat-Model)). It's a common issue on multiple type of attacks.
+- [ ] **[To do]** Set up the [HTML headers](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html): `X-Frame-Options`, `X-XSS-Protection`, `X-Content-Type-Options`, `Referrer-Policy`, `Content-Type`, `Strict-Transport-Security`, `Content-Security-Policy`, `Access-Control-Allow-Origin`, `Cross-Origin-Opener-Policy`, `Cross-Origin-Resource-Policy`, `Cross-Origin-Embedder-Policy`, remove `X-Powered-By`.
+- [ ] **[To do]** Require multi-factor authentication for admins. In places like the codebase (2FA on [Github](https://docs.github.com/en/enterprise-cloud@latest/authentication/securing-your-account-with-two-factor-authentication-2fa/about-two-factor-authentication), GPG on [Github](https://docs.github.com/en/enterprise-cloud@latest/authentication/managing-commit-signature-verification/about-commit-signature-verification))
+
+Secondary:
+- [ ] Good practices for software developers according to:
+  - Google: [security for websites](https://developers.google.com/search/docs/advanced/security/overview)
+  - Microsoft: [Security Development Lifecycle](https://www.microsoft.com/en-us/securityengineering/sdl), [mitigate supply chain attacks](https://docs.microsoft.com/en-us/microsoft-365/security/intelligence/supply-chain-malware#for-software-vendors-and-developers)
+- [ ] [CSS](https://cheatsheetseries.owasp.org/cheatsheets/Securing_Cascading_Style_Sheets_Cheat_Sheet.html)
+- [ ] Javascript package manager [NPM](https://cheatsheetseries.owasp.org/cheatsheets/NPM_Security_Cheat_Sheet.html)
+- [ ] [NodeJS](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html)
+
+#### How Metamask is saving the user's data?
 
 MetaMask is the most famous software cryptocurrency wallet used to interact with the Ethereum blockchain. It allows users to access their Ethereum wallet through a browser extension or mobile app, which can then be used to interact with decentralized applications. MetaMask is developed by ConsenSys Software Inc., a blockchain software company focusing on Ethereum-based tools and infrastructure.
 
@@ -43,14 +81,16 @@ List of ways Metamask saves the user's data:
 
 - [Explanation](https://metamask.zendesk.com/hc/en-us/articles/4404722782107) of the Metamask model of account security. 
 - Browser extensions needs to write a [manifest file](https://developer.chrome.com/docs/extensions/mv3/manifest/) to tell to the browsers the permissions, icons... they gonna use. [Metamask's manifest](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/manifest/v3/_base.json) has a permission for storage (here is the [documentation from Chrome team](https://developer.chrome.com/docs/extensions/reference/storage/) and from [MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage), it's very similar as `localStorage` but with some differences commented in the previous link. At some point (2018), it switched from `localStorage` to `chrome.storage.local` ([reference 1](https://github.com/MetaMask/metamask-extension/issues/3076#issuecomment-359969327),), [reference 2](https://github.com/MetaMask/metamask-extension/issues/2749#issuecomment-390328007)), find therYou can open the Developer Tools for the Metamask Extension of the browser where it's installed, then on the console, run the next command (read more clicking the previous documentation link):
+
 ```js
 chrome.storage.local.get('data', result => {
     var vault = result.data.KeyringController.vault
     console.log(vault)
 })
 ```
-- The file `local-store.js`(https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/lib/local-store.js) is where Metamask connect to the browser's extension storage. It uses `browser.storage.local` to do so and it is provided by the Javascript library [webextension-polyfill](https://github.com/mozilla/webextension-polyfill).
-- The file `background.js`(https://github.com/MetaMask/metamask-extension/blob/b170211700/app/scripts/background.js) contains big part of the data management of the Metamask extension.
+
+- The file [`local-store.js`](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/lib/local-store.js) is where Metamask connect to the browser's extension storage. It uses `browser.storage.local` to do so and it is provided by the Javascript library [webextension-polyfill](https://github.com/mozilla/webextension-polyfill).
+- The file [`background.js`](https://github.com/MetaMask/metamask-extension/blob/b170211700/app/scripts/background.js) contains big part of the data management of the Metamask extension.
   - [`initApp`](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/background.js#L90) is where big part of `background` code is initialized.
   - [`persistData`](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/background.js#L369) is runned during the initialization `initApp` in the [line #167](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/background.js#L167). Here, it uses the file `local-store.js`.
 - [`MetamaskController`](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/metamask-controller.js#L161): used to store the user's state related to the Metamask extension. Where is it called? in file [background](https://github.com/MetaMask/metamask-extension/blob/b170211700d78655eacc76feda0ea3b393366e1c/app/scripts/background.js#L314)
@@ -61,28 +101,8 @@ chrome.storage.local.get('data', result => {
   - [`persistAllKeyrings`](https://github.com/MetaMask/KeyringController/blob/0a92a4b2ef80b665ae8240881b3a1f2d7715d514/index.js#L549) is runned inside `createNewVaultAndRestore`. It encrypts (with [browser-passworder](https://github.com/MetaMask/browser-passworder) and stores (with `ObservableStore`) the user's mnemonic key (also called _seed phrase_). Inside it, the [encryption of the mnemonic happens](https://github.com/MetaMask/KeyringController/blob/0a92a4b2ef80b665ae8240881b3a1f2d7715d514/index.js#L571) using the password. On every browser and mobile app where Metamask is installed, it encrypts the data with the password that the user decides for each one. This is explained in the [documentation](https://metamask.zendesk.com/hc/en-us/articles/4405451730331).
 - Metamask, as said previously, stores the mnemonic key encrypted. [MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage) says _"the storage area is not encrypted and shouldn't be used for storing confidential user information."_ On the [Metamask's forum](https://community.metamask.io/t/access-metamask-seed-via-pc-files/1027/19), they talk about where the file with the keys is saved. To decrypt it, you'll need the password and the use the correct protocol.
 
-## Protect against security risks
+#### Secure the storage of the mnemonic key and private keys
 
-### Common best practices
-
-A long list by [OWASP][owasp-cheatsheets] of the most common attacks and how to prevent them.
-
-Skia Wallet team has to work on the next areas:
-- [ ] **[To do]** Cross-Site Scripting or [XSS](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#xss-prevention-rules-summary).
-- [ ] **[To do]** Cross-Site Request Forgery or [CSRF](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)
-- [ ] **[To do]** [Sanitize the inputs](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html) with the Javascript library [DOMPurify](https://github.com/cure53/DOMPurify) (its goals [here](https://github.com/cure53/DOMPurify/wiki/Security-Goals-&-Threat-Model)). It's a common issue on multiple type of attacks.
-- [ ] **[To do]** Set up the [HTML headers](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html): `X-Frame-Options`, `X-XSS-Protection`, `X-Content-Type-Options`, `Referrer-Policy`, `Content-Type`, `Strict-Transport-Security`, `Content-Security-Policy`, `Access-Control-Allow-Origin`, `Cross-Origin-Opener-Policy`, `Cross-Origin-Resource-Policy`, `Cross-Origin-Embedder-Policy`, remove `X-Powered-By`.
-- [ ] **[To do]** Require multi-factor authentication for admins. In places like the codebase (2FA on [Github](https://docs.github.com/en/enterprise-cloud@latest/authentication/securing-your-account-with-two-factor-authentication-2fa/about-two-factor-authentication), GPG on [Github](https://docs.github.com/en/enterprise-cloud@latest/authentication/managing-commit-signature-verification/about-commit-signature-verification))
-
-Secondary:
-- [ ] Good practices for software developers according to:
-  - Google: [security for websites](https://developers.google.com/search/docs/advanced/security/overview)
-  - Microsoft: [Security Development Lifecycle](https://www.microsoft.com/en-us/securityengineering/sdl), [mitigate supply chain attacks](https://docs.microsoft.com/en-us/microsoft-365/security/intelligence/supply-chain-malware#for-software-vendors-and-developers)
-- [ ] [CSS](https://cheatsheetseries.owasp.org/cheatsheets/Securing_Cascading_Style_Sheets_Cheat_Sheet.html)
-- [ ] Javascript package manager [NPM](https://cheatsheetseries.owasp.org/cheatsheets/NPM_Security_Cheat_Sheet.html)
-- [ ] [NodeJS](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html)
-
-### Secure the storage of the mnemonic key and private keys
 There's another technology that browsers supports called **Web Workers** that guarantee that the data remains inside a Web Worker and cannot be accessed from outside, like an attacker.
 
 #### Web Workers
@@ -100,7 +120,7 @@ _Image from [Auth0]_
 
 Benefits of Web Workers over the previous storing web techniques:
 
-- The other techniques to store data explained above (`localStorage, `sessionStorage` and cookies) are more vulnerable to attacks.
+- The other techniques to store data explained above (`localStorage`, `sessionStorage` and cookies) are more vulnerable to attacks.
 - Supported by all major mobile and desktop browsers. [Can I Use][can-i-use-web-workers] shows the compatibility table and supported by ~96% of browser's user in the world.
 - It prevents third-party code from accessing mnemonic key and HTTP-request interceptions. Since third-party codes run on the main thread, they cannot intercept requests initiated by the web workers. Yes, when we store access tokens in web workers, API requests needing those access tokens should also be initiated from the web workers.
 
@@ -121,18 +141,14 @@ Some concerns found on the documentation and Internet:
   - _Script loading is subject to the same restrictions as on the main thread (content policies, same origin restrictions, etc.)._
   - _XHR uses the same code as the main thread._
 
+---
 
-##### References
+## References
 
 - [List of attacks and their solutions][owasp-cheatsheet] by OWASP
 - [MDN][mdn-web-workers]
 - [HTML Living Standard][whatwg-org]
 - [Can I Use][can-i-use-web-workers]
-
-## Tools for security analyzes
-
-Skia Wallet uses in the development workflow: 
-- [Snyk](https://snyk.io/) to "_find and fix security vulnerabilities in code and dependencies_".
 
 [owasp-cheatsheet]: https://cheatsheetseries.owasp.org/Glossary.html
 [auth0-storage]: https://auth0.com/blog/secure-browser-storage-the-facts/
