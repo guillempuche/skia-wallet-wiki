@@ -32,7 +32,10 @@ To make your life easy, you have two ways:
 
 - [Work in progress][Recommended] Via tests
 - Via NPM. Steps:
-   1. Create a file in any choosen package/layer and it needs to be inside the folder `src` that each package already has. Eg. File name `_dev.ts` located on the path `packages/repositories/src/_dev.ts`.
+   1. Create a file in any choosen package/layer. It needs to be:
+      - inside the folder `src` that each package already has.
+      - File name `_dev.ts` or `__dev.ts`.
+      - Eg. File name `_dev.ts` located on the path `packages/repositories/src/_dev.ts`.
    2. Add a NPM command in the main `package.json` of the choosen package. Eg. located on `packages/repositories/package.json`
 
 ```json
