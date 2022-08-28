@@ -31,8 +31,8 @@ _refactor(entities, *): change name of a method_ (asterisk * means many differen
 _docs(ui-common, error): add explanation for class `Error`_
 _docs(readme): add the section Contribute_
 
-- **test**
+- **test**: tests related to unit testing, integration testing of the code.
 - **chore**: periodic management task, like upgrading the dependencies, uploading documentation, etc.
 - **style**: updating styling, like CSS and components' look and feel, etc. It's not behavior change, like send a transaction when a button is clicked.
 - **perf**: performance.
-- **build**: debugging (like edit [VSCode configuration](https://github.com/Future-Wallet/skia-wallet/blob/main/.vscode)), modify the build process, add new NPM commands, etc.
+- **build**: debugging (like edit [VSCode configuration](https://github.com/Future-Wallet/skia-wallet/blob/main/.vscode)), modify git configuration like the file [`.gitignore`](https://github.com/Future-Wallet/skia-wallet/blob/main/.gitignore), modify the build process, add new NPM commands, etc.
