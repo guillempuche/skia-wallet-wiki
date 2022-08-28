@@ -17,6 +17,10 @@ These are the benefits of the monorepo (taken from [Nex.dev](https://nx.dev/guid
 - **Developer mobility**. Get a consistent way of building and testing applications written using different tools and technologies. Developers can confidently contribute to other teams’ applications and verify that their changes are safe.
 - **Single set of dependencies**. Use a single version of all third-party dependencies, reducing inconsistencies between applications. Less actively developed applications are still kept up-to-date with the latest version of a framework, library, or build tool.
 
+You can read about Nx folder structure [here](https://nx.dev/getting-started/nx-setup)
+
+> Hint: We don't use the folder `apps`, all the code is in the folder `packages`.
+
 ---
 
 ## Layer architecture
