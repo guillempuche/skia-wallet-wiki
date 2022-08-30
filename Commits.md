@@ -3,7 +3,7 @@
 You'll need to follow the next Set of rules for creating an explicit commit history; which makes it easier to write automated tools on top of.
 
 Every commit should follow the following structure:
-_`type(package_name, max three contexts else *): explaination_in_present_tense`_
+_`type(package_name or * whne there are multiple packages, max three contexts or *): explaination_in_present_tense`_
 
 There are a small list of types (below there's the list) and packages (their names are in the code folder `packages`).
 
