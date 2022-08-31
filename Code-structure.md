@@ -10,12 +10,13 @@ We use the methodology **monorepo** (used in Google, Facebook...). It helps Skia
 
 > Learn more about monorepos on this [video of Google](https://youtu.be/W71BTkUbdqE) and [Nx.dev](https://nx.dev/guides/why-monorepos).
 
-These are the benefits of the monorepo (taken from [Nex.dev](https://nx.dev/guides/why-monorepos)):
+These are the benefits of the monorepo (taken from [Nex.dev](https://nx.dev/guides/why-monorepos) and [ACM](https://cacm.acm.org/magazines/2016/7/204032-why-google-stores-billions-of-lines-of-code-in-a-single-repository/fulltext)):
 
-- **Shared code and visibility**. Keeps your code DRY across your entire organization. Reuse validation code, UI components, and types across the codebase. Reuse code between the backend, the frontend, and utility libraries.
+- **Shared code and visibility**. Keeps your code across your entire organization. Reuse validation code, UI components, and types across the codebase. Reuse code between the backend, the frontend, and utility libraries.
 - **Atomic changes**. Change a server API and modify the downstream applications that consume that API in the same commit. You can change a button component in a shared library and the applications that use that component in the same commit. A monorepo saves the pain of trying to coordinate commits across multiple repositories.
 - **Developer mobility**. Get a consistent way of building and testing applications written using different tools and technologies. Developers can confidently contribute to other teams’ applications and verify that their changes are safe.
 - **Single set of dependencies**. Use a single version of all third-party dependencies, reducing inconsistencies between applications. Less actively developed applications are still kept up-to-date with the latest version of a framework, library, or build tool.
+- **Unified versioning, one source of truth**
 
 You can read about Nx folder structure [here](https://nx.dev/getting-started/nx-setup)
 
