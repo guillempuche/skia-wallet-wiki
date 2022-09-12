@@ -3,7 +3,7 @@
 You'll need to follow the next Set of rules for creating an explicit commit history; which makes it easier to write automated tools on top of.
 
 Every commit should follow the following structure:
-_`type(package_name or * whne there are multiple packages, max three contexts or *): explaination_in_present_tense`_
+_`type(none or package_name | * when there are multiple packages, max three contexts or *): explaination_in_present_tense`_ or _`type(*): explaination_in_present_tense`_ (the last structure is when there's a cross change of none/multiple packages and multiple contexts)
 
 There are a small list of types (below there's the list) and packages (their names are in the code folder `packages`).
 
@@ -17,13 +17,16 @@ _fix(entities, account, wallet): add the validation for `privateKey` when creati
 
 - **feat**: introduce a new feature to the codebase.
 
+_feat(nx): change default branch_ (it excludes the package name because it changes a file on the project general configuration)
+
 _feat(ui-components, progress button): add a progress button_
 
 - **refactor**: restructure the code, change the internal behavior of method.
 
 _refactor(ui-repositories, swap): split the code on multiple methods_
+_refactor(*, api): delete the creation of an instance_ (asterisk * means multiple packages have been touched)
 
-_refactor(entities, *): change name of a method_ (asterisk * means many different context have been refactored)
+_refactor(entities, *): change name of a method_ (asterisk * means many contexts have been refactored)
 
 - **improv**: an improvement of the code without fixing the code and doing a refactor
 - **docs**: documentation like comments, explanation for classes, methods, etc.
