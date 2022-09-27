@@ -34,6 +34,5 @@ _refactor(entities, *): change name of a method_ (asterisk * means many contexts
 _docs(ui-common, error): add explanation for class `Error`_
 _docs(readme): add the section Contribute_
 
-- **test**: tests related to unit testing, integration testing of the code.
 - **chore**: periodic management task, like upgrading the dependencies, uploading documentation, etc.
 - **build**: debugging (like edit [VSCode configuration](https://github.com/Future-Wallet/skia-wallet/blob/main/.vscode)), modify git configuration like the file [`.gitignore`](https://github.com/Future-Wallet/skia-wallet/blob/main/.gitignore), modify the build process, add new NPM commands, etc.
