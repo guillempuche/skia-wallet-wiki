@@ -31,7 +31,7 @@ _refactor(entities): change name of a method `getValue`_
 - **improv**: an improvement of the code without fixing the code and doing a refactor
 - **docs**: documentation like comments, explanation for classes, methods, etc.
 
-_docs(ui-common): add explanation for class `Error`_
+_docs(common): add explanation for class `Error`_
 _docs(readme): add the section Contribute_
 
 - **chore**: periodic management task, like upgrading the dependencies, uploading documentation, etc.
