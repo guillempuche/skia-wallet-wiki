@@ -38,7 +38,7 @@ _docs(common): add explanation for class `Error`_
 _docs(*): add the section Contribute_
 
 - **chore**: periodic management task, like upgrading the dependencies, uploading documentation, etc.
-- **build**: edit the debugging flow (eg. [VSCode configuration](https://github.com/Future-Wallet/skia-wallet/blob/main/.vscode)), modify git configuration (eg. the file [`.gitignore`](https://github.com/Future-Wallet/skia-wallet/blob/main/.gitignore)), modify the build process, edit scripts, add new NPM commands, etc.
+- **ci**: edit the debugging flow (eg. [VSCode configuration](https://github.com/Future-Wallet/skia-wallet/blob/main/.vscode)), modify git configuration (eg. the file [`.gitignore`](https://github.com/Future-Wallet/skia-wallet/blob/main/.gitignore)), modify the build process, edit scripts, add new NPM commands, etc.
 
 ## List of scopes
 
@@ -48,4 +48,4 @@ _docs(*): add the section Contribute_
 - **ui-wallet**: anything related to the package with the wallet website
 - **repo**: anything related to managing the repo itself
 - **test**: anything testing specific (e.g., jest or cypress)
-- *: Multiple scopes
+- *: multiple scopes
