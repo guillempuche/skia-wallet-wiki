@@ -16,12 +16,15 @@ _fix(entities): add the validation for `privateKey` when creating a new account_
 - **feat**: introduce a new feature to the codebase.
 
 _feat(repo): change default branch_
+
 _feat(ui-components): add a progress button_
 
 - **refactor**: restructure the code, change the internal behavior of method.
 
 _refactor(ui-repositories): split the code on multiple methods for the swap functionality_
+
 _refactor(*): delete the creation of an instance in the API_
+
 _refactor(entities): change name of a method `getValue`_
 
 - **improv**: an improvement of the code without fixing the code and doing a refactor
@@ -31,6 +34,7 @@ _improv(test): exclude Javascript files_
 - **docs**: documentation like comments, explanation for classes, methods, etc.
 
 _docs(common): add explanation for class `Error`_
+
 _docs(*): add the section Contribute_
 
 - **chore**: periodic management task, like upgrading the dependencies, uploading documentation, etc.
