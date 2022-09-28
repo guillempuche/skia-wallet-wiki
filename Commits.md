@@ -21,12 +21,12 @@ _feat(ui-components): add a progress button_
 - **refactor**: restructure the code, change the internal behavior of method.
 
 _refactor(ui-repositories): split the code on multiple methods for the swap functionality_
-_refactor(*): delete the creation of an instance in the API_ (asterisk * means multiple packages have been touched)
+_refactor(*): delete the creation of an instance in the API_
 _refactor(entities): change name of a method `getValue`_
 
 - **improv**: an improvement of the code without fixing the code and doing a refactor
 
-improv(test): exclude Javascript files_
+_improv(test): exclude Javascript files_
 
 - **docs**: documentation like comments, explanation for classes, methods, etc.
 
