@@ -22,10 +22,12 @@ _feat(ui-components): add a progress button_
 
 _refactor(ui-repositories): split the code on multiple methods for the swap functionality_
 _refactor(*): delete the creation of an instance in the API_ (asterisk * means multiple packages have been touched)
-
 _refactor(entities): change name of a method `getValue`_
 
 - **improv**: an improvement of the code without fixing the code and doing a refactor
+
+improv(test): exclude Javascript files_
+
 - **docs**: documentation like comments, explanation for classes, methods, etc.
 
 _docs(common): add explanation for class `Error`_
@@ -36,6 +38,10 @@ _docs(*): add the section Contribute_
 
 ## List of scopes
 
-- *entities*: Anything related to the package Entities
-- *entities*: Anything related to the package Entities
-- *entities*: Anything related to the package Entities
+- *entities*: anything related to the package Entities
+- *repositories*: anything related to the package Repositories
+- *ui-components*: anything related to the package containing the frontend components
+- *ui-wallet*: anything related to the package with the wallet website
+- *repo*: anything related to managing the repo itself
+- *test*: anything testing specific (e.g., jest or cypress)
+- *: Multiple scopes
