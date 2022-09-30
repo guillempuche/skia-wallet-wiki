@@ -42,7 +42,7 @@ _docs(*): add the section Contribute_
 
 ## List of scopes
 
-- *entities**: anything related to the package Entities
+- **entities**: anything related to the package Entities
 - **repositories**: anything related to the package Repositories
 - **ui-components**: anything related to the package containing the frontend components
 - **ui-wallet**: anything related to the package with the wallet website
