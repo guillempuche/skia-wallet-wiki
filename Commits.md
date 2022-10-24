@@ -42,6 +42,7 @@ _docs(*): add the section Contribute_
 
 ## List of scopes
 
+- **common**: anything related to the package Common
 - **entities**: anything related to the package Entities
 - **repositories**: anything related to the package Repositories
 - **ui-components**: anything related to the package containing the frontend components
